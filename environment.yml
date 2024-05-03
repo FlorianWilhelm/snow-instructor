@@ -1,0 +1,8 @@
+# Streamlit app environment file
+# Make sure to keep this in sync with the abstract dependencies in pyproject.toml
+name: sf_env
+channels:
+  - snowflake
+dependencies:
+  - streamlit
+  - snowflake-snowpark-python
