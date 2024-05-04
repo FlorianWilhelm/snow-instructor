@@ -18,11 +18,12 @@ authors = [
     { name = "Florian Wilhelm", email = "florian.wilhelm@gmail.com" },
 ]
 # options under https://pypi.org/classifiers/
-classifiers = [ 
+classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: Implementation :: CPython",
 ]
 # direct dependencies of this package, installed when users `pip install snow-instructor` later.
@@ -30,20 +31,23 @@ dependencies = [
     "typer",
     "snowflake[ml]",
     "snowflake-snowpark-python",
-    "streamlit"
+    "streamlit",
+    "markdownify",
+    "scrapy",
+    "transformers"
 ]
 dynamic = ["version"]
 
 [project.scripts]
-arctic = "snow_instructor.arctic:app"
+crawl-snow-docs = "snow_instructor.crawler:app"
+cli-quiz = "snow_instructor.main:app"
 
 [project.urls]
 # important URLs for this project
-# ToDo: Modify according to your needs!
 Documentation = "https://github.com/FlorianWilhelm/snow-instructor"
 Source = "https://github.com/FlorianWilhelm/snow-instructor"
-# Tracker = "https://github.com/FlorianWilhelm/snow-instructor/issues"
-# Sponsor = "https://github.com/sponsors/FlorianWilhelm"
+Tracker = "https://github.com/FlorianWilhelm/snow-instructor/issues"
+Sponsor = "https://github.com/sponsors/FlorianWilhelm"
 
 ######################
 # Build & Versioning #
@@ -228,6 +232,7 @@ dependencies = [
 [tool.hatch.envs.default.scripts]
 upgrade-all = "PIP_COMPILE_UPGRADE=1 hatch env run --env {env_name} -- python --version"
 upgrade-pkg = "PIP_COMPILE_UPGRADE_PACKAGE='{args}' hatch env run --env {env_name} -- python --version"
+snow-instructor = "streamlit run streamlit_app.py"
 
 # Test environment with test-only dependencies
 [tool.hatch.envs.test]

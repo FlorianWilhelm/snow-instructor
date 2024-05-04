@@ -1,81 +1,71 @@
-import enum
 import logging
-import os
-import sys
-from typing import Annotated
+import re
+from dataclasses import dataclass
 
-import torch
-import typer
-from deepspeed.linear.config import QuantizationConfig
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-from snow_instructor import __version__
+from snowflake import cortex
+from snowflake.snowpark import Session
+from transformers import GPT2Tokenizer
 
 _logger = logging.getLogger(__name__)
 
 
-class LogLevel(str, enum.Enum):
-    CRITICAL = 'critical'
-    ERROR = 'error'
-    WARNING = 'warning'
-    INFO = 'info'
-    DEBUG = 'debug'
+QUIZ_PROMPT = ('Based on the following excerpt from the Snowflake documentation, generate a multiple-choice question '
+               'that tests understanding of the key concept discussed. Include four answer choices and indicate the '
+               'correct answer.\n{text}')
 
 
-def setup_logging(log_level: LogLevel):
-    """Setup basic logging"""
-    log_format = '[%(asctime)s] %(levelname)s:%(name)s:%(message)s'
-    numeric_level = getattr(logging, log_level.upper(), None)
-    logging.basicConfig(level=numeric_level, stream=sys.stdout, format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
+@dataclass
+class QuizQuestion:
+    question: str
+    answers: tuple[str, str, str, str]
+    correct_answer: int
+    source: dict[str, str] | None = None
+
+    @property
+    def is_valid(self) -> bool:
+        return len(self.answers) == 4 and 0 <= self.correct_answer <= 3  # noqa: PLR2004
 
 
-def query_arctic(content: str, role: str = 'user') -> str:
-    # enable hf_transfer for faster ckpt download
-    os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
+def chunk(text: str, max_tokens: int | None = None) -> list[str]:
+    if max_tokens is None:
+        max_tokens = int(0.9 * 4096)  # 90% of the arctic's max token length
 
-    tokenizer = AutoTokenizer.from_pretrained(
-        'Snowflake/snowflake-arctic-instruct',
-        trust_remote_code=True
-    )
-
-    quant_config = QuantizationConfig(q_bits=8)
-
-    # The 150GiB number is a workaround until we have HFQuantizer support, must be ~1.9x of the available GPU memory
-    model = AutoModelForCausalLM.from_pretrained(
-        "Snowflake/snowflake-arctic-instruct",
-        low_cpu_mem_usage=True,
-        trust_remote_code=True,
-        device_map="auto",
-        ds_quantization_config=quant_config,
-        max_memory={i: "150GiB" for i in range(8)},
-        torch_dtype=torch.bfloat16)
-
-    messages = [{"role": "user", "content": "What is 1 + 1 "}]
-    input_ids = tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt").to("cuda")
-
-    outputs = model.generate(input_ids=input_ids, max_new_tokens=20)
-    return tokenizer.decode(outputs[0])
+    tokenizer = GPT2Tokenizer.from_pretrained('gpt2')  # assuming that arctic tokenizes the same way
+    tokens = tokenizer.tokenize(text)
+    chunks = [tokens[i:i + max_tokens] for i in range(0, len(tokens), max_tokens)]
+    return [tokenizer.convert_tokens_to_string(chunk) for chunk in chunks]
 
 
-app = typer.Typer(
-    name=f'Snow Instructor {__version__}',
-    help="LLM instructor that teaches you about Snowflake's capabilities.",
-)
+def query_arctic(prompt: str) -> str:
+    session = Session.builder.getOrCreate()
+    return cortex.Complete(model='snowflake-arctic', prompt=prompt, session=session)
 
 
-@app.command()
-def main(
-    content: Annotated[str, typer.Argument(..., help='Query content')],
-    log_level: Annotated[LogLevel, typer.Option(help='Log level')] = LogLevel.INFO,
-):
-    """Wrapper allowing :func:`fib` to be called with string arguments in a CLI fashion
+def parse_arctic_response(text: str) -> QuizQuestion:
+    parts = re.split(r'\n\s*\n+', text.strip())
+    if len(parts) != 3:  # noqa: PLR2004
+        msg = 'Reponse of Arctic does not have the expected format. We have {len(parts)} parts instead of 3.'
+        raise ValueError(msg)
+    question, answers, correct_answer = parts
 
-    Instead of returning the value from :func:`fib`, it prints the result to the
-    `stdout` in a nicely formatted message.
-    """
-    setup_logging(log_level)
-    print(f'Arctic: {query_arctic(content=content)}')  # noqa: T201
+    match = re.search(r'[Aa][:).] (.+?)\n[Bb][:).] (.+?)\n[Cc][:).] (.+?)\n[Dd][:).] (.+?)$', answers)
+    if match is None:
+        msg = f'Could not parse the quiz answers from Arctic. Answers:\n{answers}'
+        raise ValueError(msg)
+    answers = match.groups()
+
+    match = re.search(r'Correct.*: ([A-Da-d])', correct_answer)
+    if match is None:
+        msg = f'Could not parse the correct answer from Arctic. Correct answer:\n{correct_answer}'
+        raise ValueError(msg)
+    correct_answer = match.groups()[0].upper()
+
+    return QuizQuestion(question=question, answers=tuple(answers), correct_answer=ord(correct_answer) - 65)
 
 
-if __name__ == '__main__':
-    app()
+def query_quiz_prompt(text: str) -> QuizQuestion:
+    prompt = QUIZ_PROMPT.format(text=text)
+    _logger.debug(f'Querying Arctic with prompt:\n{prompt}]')
+    response = query_arctic(prompt=prompt)
+    _logger.debug(f'Arctic response:\n{response}')
+    return parse_arctic_response(response)

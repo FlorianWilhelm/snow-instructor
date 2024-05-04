@@ -1,12 +1,40 @@
 # Snow Instructor
 
-LLM instructor that teaches you about Snowflake's capabilities.
+Artic Snowflake instructor that teaches you about Snowflake's capabilities.
 
 ## Features
 
 * Feature 1
 * Feature 2
 * ...
+
+AWS US West 2
+(Oregon)
+https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#label-cortex-llm-availability
+
+```ini
+[default]
+account = "YOUR_ACCOUNT"
+user = "YOUR_USER_NAME"
+password = "YOUR_PASSWORD"
+role = "accountadmin"
+warehouse = "COMPUTE_WH"
+database = "SNOWINSTRUCTOR"
+schema = "public"
+```
+
+
+```bash
+hatch run crawl-snow-docs
+```
+
+```bash
+hatch run snow-instructor
+```
+
+```bash
+hatch run cli-quiz
+```
 
 ## Development
 
@@ -41,5 +69,4 @@ This package was created with [The Hatchlor] project template.
 [pipx]: https://pypa.github.io/pipx/
 [hatch]: https://hatch.pypa.io/
 [pre-commit]: https://pre-commit.com/
-[VS Code]: https://code.visualstudio.com/docs/python/environments#_where-the-extension-looks-for-environments
 [hatch-pip-compile]: https://github.com/juftin/hatch-pip-compile
