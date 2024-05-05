@@ -1,42 +1,64 @@
-# Snow Instructor
+#  ❄️ Snow Instructor ❄️
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/master/assets/logo-woman.png" alt="Snow Instructor logo" width="300" role="img">
+</div>
 
 Artic Snowflake instructor that teaches you about Snowflake's capabilities.
 
-## Features
+## 💫 Features
 
 * Feature 1
 * Feature 2
 * ...
 
-AWS US West 2
-(Oregon)
-https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#label-cortex-llm-availability
+## ⛷️ Getting Started
 
-```ini
-[default]
-account = "YOUR_ACCOUNT"
-user = "YOUR_USER_NAME"
-password = "YOUR_PASSWORD"
-role = "accountadmin"
-warehouse = "COMPUTE_WH"
-database = "SNOWINSTRUCTOR"
-schema = "public"
-```
+1. If you have are a new Snowflake user, [register a 30-day free trial Snowflake account].
+   Choose the enterprise edition, AWS as cloud provider and region AWS US West 2 (Oregon),
+   as [Snowflake Arctic is only available in this region].
+2. Create a Snowflake configuration file under `~/.snowflake/connections.toml` with:
 
+    ```ini
+    [default]
+    account = "YOUR_ACCOUNT"
+    user = "YOUR_USER_NAME"
+    password = "YOUR_PASSWORD"
+    role = "accountadmin"
+    warehouse = "COMPUTE_WH"
+    database = "SNOWINSTRUCTOR"
+    schema = "public"
+    ```
 
-```bash
-hatch run crawl-snow-docs
-```
+3. Clone this repository into a directory `snowflake-instuctor`.
+4. Install [hatch] globally, e.g. with [pipx], i.e. `pipx install hatch`.
+5. Let our spider crawl the [Snowflake documentation] and upload it into a Snowflake table with:
 
-```bash
-hatch run snow-instructor
-```
+   ```bash
+   hatch run crawl-snow-docs
+   ```
 
-```bash
-hatch run cli-quiz
-```
+   This needs to be done exactly once and will also make sure that your connection works.
+6. To check if our Snowflake Instructor works on the command-line, try:
 
-## Development
+   ```bash
+   hatch run cli-quiz
+   ```
+
+7. To start the [Streamlit] client locally on your machine, run:
+
+   ```bash
+   hatch run snow-instructor
+   ```
+
+8. To deploy everything on Snowflake, run:
+
+   ```bash
+   hatch run prep-deployment  # to setup the warehouse, etc.
+   hatch run snow streamlit deploy
+   ```
+
+## 🛠️ Development
 
 To set up [hatch] and [pre-commit] for the first time:
 
@@ -61,7 +83,7 @@ The environments defined by hatch are configured to generate lock files using [h
 To upgrade all packages in an environment like `test`, just run `hatch run test:upgrade-all`. To upgrade specific
 packages, type `hatch run test:upgrade-pkg pkg1,pkg2`.
 
-## Credits
+## 🙏 Credits
 
 This package was created with [The Hatchlor] project template.
 
@@ -70,3 +92,7 @@ This package was created with [The Hatchlor] project template.
 [hatch]: https://hatch.pypa.io/
 [pre-commit]: https://pre-commit.com/
 [hatch-pip-compile]: https://github.com/juftin/hatch-pip-compile
+[register a 30-day free trial Snowflake account]: https://trial.snowflake.com/?owner=SPN-PID-545753
+[Snowflake Arctic is only available in this region]: https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#label-cortex-llm-availability
+[Snowflake documentation]: https://docs.snowflake.com/
+[Streamlit]: https://streamlit.io/

@@ -41,6 +41,7 @@ dynamic = ["version"]
 [project.scripts]
 crawl-snow-docs = "snow_instructor.crawler:app"
 cli-quiz = "snow_instructor.main:app"
+prep-deployment = "snow_instructor.deploy:app"
 
 [project.urls]
 # important URLs for this project

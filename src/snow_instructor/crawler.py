@@ -10,7 +10,8 @@ from scrapy.utils.project import get_project_settings
 from snowflake.snowpark import Session
 
 from snow_instructor import __version__
-from snow_instructor.utils import SNOWDOCS_TABLE, LogLevel, table_exists
+from snow_instructor.settings import SNOWDOCS_TABLE
+from snow_instructor.utils import LogLevel, table_exists
 
 _logger = logging.getLogger(__name__)
 
@@ -60,7 +61,7 @@ def add_items_to_snowdocs_table(items):
 
 
 app = typer.Typer(
-    name=f'Snow Instructor {__version__}',
+    name=f'Snow Instructor {__version__} Crawler',
     help="This spider crawls Snowflake's docs to generate quiz questions."
 )
 

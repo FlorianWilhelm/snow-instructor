@@ -6,3 +6,9 @@ channels:
 dependencies:
   - streamlit
   - snowflake-snowpark-python
+  - typer
+  - snowflake[ml]
+  - snowflake-snowpark-python
+  - markdownify # not really needed in Streamlit app.
+  - scrapy # not really needed in Streamlit app.
+  - transformers
