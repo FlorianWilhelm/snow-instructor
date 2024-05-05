@@ -1,7 +1,7 @@
 import logging
-from typing import Annotated
 
 import typer
+from annotated_types import Annotated
 from markdownify import markdownify
 from scrapy.crawler import CrawlerProcess
 from scrapy.linkextractors import LinkExtractor

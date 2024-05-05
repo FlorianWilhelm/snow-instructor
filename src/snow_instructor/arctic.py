@@ -1,6 +1,7 @@
 import logging
 import re
 from dataclasses import dataclass
+from typing import Dict, List, Tuple, Union
 
 from snowflake import cortex
 from snowflake.snowpark import Session
@@ -17,16 +18,16 @@ QUIZ_PROMPT = ('Based on the following excerpt from the Snowflake documentation,
 @dataclass
 class QuizQuestion:
     question: str
-    answers: tuple[str, str, str, str]
+    answers: Tuple[str, str, str, str]
     correct_answer: int
-    source: dict[str, str] | None = None
+    source: Union[Dict[str, str], None] = None
 
     @property
     def is_valid(self) -> bool:
         return len(self.answers) == 4 and 0 <= self.correct_answer <= 3  # noqa: PLR2004
 
 
-def chunk(text: str, max_tokens: int | None = None) -> list[str]:
+def chunk(text: str, max_tokens: Union[int, None] = None) -> List[str]:
     if max_tokens is None:
         max_tokens = int(0.9 * 4096)  # 90% of the arctic's max token length
 

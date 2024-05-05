@@ -1,7 +1,7 @@
 #  ❄️ Snow Instructor ❄️
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/main/assets/logo-woman.png" alt="Snow Instructor logo" width="300" role="img">
+<img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/main/assets/logo-woman.png" alt="Snow Instructor logo" width="500" role="img">
 </div>
 
 Artic Snowflake instructor that teaches you about Snowflake's capabilities.
@@ -51,12 +51,15 @@ Artic Snowflake instructor that teaches you about Snowflake's capabilities.
    hatch run snow-instructor
    ```
 
-8. To deploy everything on Snowflake, run:
+8. To deploy everything on Snowflake, run within the root of this repo:
 
    ```bash
    hatch run prep-deployment  # to setup the warehouse, etc.
-   hatch run snow streamlit deploy
+   hatch run deploy-streamlit
    ```
+
+   And open up the URL returned by the last command.
+
 
 ## 🛠️ Development
 

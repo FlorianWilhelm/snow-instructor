@@ -5,6 +5,7 @@ In most functions we assume that a Snowflake session is already created.
 import enum
 import logging
 import sys
+from typing import Dict, List
 
 from snowflake.core import CreateMode, Root
 from snowflake.core.warehouse import Warehouse, WarehouseCollection, WarehouseResource
@@ -38,7 +39,7 @@ def table_exists(table_name: str) -> bool:
     return True
 
 
-def get_snowdocs_table() -> list[dict[str, str]]:
+def get_snowdocs_table() -> List[Dict[str, str]]:
     if not table_exists(SNOWDOCS_TABLE):
         msg = f'Table {SNOWDOCS_TABLE} does not exist. Create it using `crawl-snow-docs` command.'
         raise ValueError(msg)
@@ -48,7 +49,7 @@ def get_snowdocs_table() -> list[dict[str, str]]:
     return [{k.lower(): v for k, v in row.asDict().items()} for row in rows]
 
 
-def show_warehouses() -> list[str]:
+def show_warehouses() -> List[str]:
     """Retrieve all warehouses in the current Snowflake session
 
     This should be also possible with `root.warehouses` but it's not working in the current version.

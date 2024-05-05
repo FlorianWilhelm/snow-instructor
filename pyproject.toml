@@ -10,7 +10,7 @@ build-backend = "hatchling.build"
 name = "snow-instructor"
 description = "LLM instructor that teaches you about Snowflake's capabilities."
 readme = "README.md"
-requires-python = ">=3.10"# only license identifier from https://spdx.org/licenses/ are allowed
+requires-python = "~=3.8" # Needed for Streamlit on Snowflake
 license = { text = "MIT"}
 # keywords for easier look-up on PyPI
 keywords = ["streamlit", "instructor", "snowflake", "ai", "llm"]
@@ -34,7 +34,8 @@ dependencies = [
     "streamlit",
     "markdownify",
     "scrapy",
-    "transformers"
+    "transformers",
+    "annotated-types",  # for having Annotated[...] in Python 3.8
 ]
 dynamic = ["version"]
 
@@ -128,7 +129,7 @@ exclude_lines = [
 ]
 
 [tool.ruff]
-target-version = "py310" # ToDo: Modify according to your needs!
+target-version = "py38"
 line-length = 120
 indent-width = 4
 include = [
@@ -218,7 +219,7 @@ requires = ["hatch-pip-compile~=1.11"]
 
 # Default environment with production dependencies
 [tool.hatch.envs.default]
-python = "3.10"
+python = "3.8"
 post-install-commands = ["pre-commit install"]
 type = "pip-compile"
 pip-compile-constraint = "default"  # keep locks between default & others consistent
@@ -234,6 +235,11 @@ dependencies = [
 upgrade-all = "PIP_COMPILE_UPGRADE=1 hatch env run --env {env_name} -- python --version"
 upgrade-pkg = "PIP_COMPILE_UPGRADE_PACKAGE='{args}' hatch env run --env {env_name} -- python --version"
 snow-instructor = "streamlit run streamlit_app.py"
+deploy-streamlit = [
+    "snow streamlit deploy --replace",
+    # as Snowflake cannot handloy src-layout, we need to copy the files one level above
+    "snow stage copy --overwrite src/snow_instructor @snow_instructor_stage/snow_instructor/snow_instructor"
+    ]
 
 # Test environment with test-only dependencies
 [tool.hatch.envs.test]
@@ -326,4 +332,4 @@ all = [
 # Test matrix for various Python versions replacing the functionality of tox
 [[tool.hatch.envs.py-test.matrix]]
 template = ["test"]
-python = ["310", "311", "312"]
+python = ["38"]

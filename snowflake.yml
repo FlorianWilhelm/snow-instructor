@@ -1,10 +1,11 @@
 definition_version: 1
 streamlit:
-  name: snow_instructor
+  name: snowinstructor
   stage: snow_instructor_stage
-  query_warehouse: snow_instructor_wh
+  query_warehouse: snowinstructor_wh
   main_file: streamlit_app.py
   env_file: environment.yml
   pages_dir: pages/
   additional_source_files:
     - src/snow_instructor/*.py
+    - assets/*

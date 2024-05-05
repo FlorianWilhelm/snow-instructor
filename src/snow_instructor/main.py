@@ -1,7 +1,8 @@
 import random
-from typing import Annotated
+from typing import Dict, List
 
 import typer
+from annotated_types import Annotated
 from snowflake.snowpark import Session
 
 from snow_instructor import __version__
@@ -11,7 +12,7 @@ from snow_instructor.utils import LogLevel, get_snowdocs_table, setup_logging
 MIN_TEXT_LEN_FOR_QUESTION = 2000  # we assume that's long enough to generate a good question
 
 
-def generate_quiz(snowdocs: list[dict[str, str]]) -> QuizQuestion:
+def generate_quiz(snowdocs: List[Dict[str, str]]) -> QuizQuestion:
     """Generate a quiz question based on the content of the Snowflake documentation"""
     while True:
         page = random.choice(snowdocs)  # noqa: S311
