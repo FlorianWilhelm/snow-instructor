@@ -8,9 +8,13 @@ Artic Snowflake instructor that teaches you about Snowflake's capabilities.
 
 ## 💫 Features
 
-* Feature 1
-* Feature 2
-* ...
+With this full-fledged AI-based Streamlit Application on Snowflake, you'll learn about:
+
+* [Snowpark's Python API],
+* [Snowflake's Cortex AI capabilities] and especially the [Snowflake Arctic LLM],
+* [Mulit-page Streamlit application],
+* [Streamlit Deployment on Snowflake],
+* [Snowflake CLI]
 
 ## ⛷️ Getting Started
 
@@ -58,7 +62,7 @@ Artic Snowflake instructor that teaches you about Snowflake's capabilities.
    hatch run deploy-streamlit
    ```
 
-   And open up the URL returned by the last command.
+   And open up the URL shown in the output of the last command.
 
 
 ## 🛠️ Development
@@ -99,3 +103,9 @@ This package was created with [The Hatchlor] project template.
 [Snowflake Arctic is only available in this region]: https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#label-cortex-llm-availability
 [Snowflake documentation]: https://docs.snowflake.com/
 [Streamlit]: https://streamlit.io/
+[Snowpark's Python API]: https://docs.snowflake.com/en/developer-guide/snowflake-python-api/snowflake-python-overview
+[Snowflake's Cortex AI capabilities]: https://docs.snowflake.com/en/user-guide/snowflake-cortex/overview
+[Snowflake Arctic LLM]: https://www.snowflake.com/en/data-cloud/arctic/
+[Mulit-page Streamlit application]: https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
+[Streamlit Deployment on Snowflake]: https://www.snowflake.com/en/data-cloud/overview/streamlit-in-snowflake/
+[Snowflake CLI]: https://docs.snowflake.com/developer-guide/snowflake-cli-v2/index

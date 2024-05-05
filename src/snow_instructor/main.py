@@ -2,8 +2,8 @@ import random
 from typing import Dict, List
 
 import typer
-from annotated_types import Annotated
 from snowflake.snowpark import Session
+from typing_extensions import Annotated
 
 from snow_instructor import __version__
 from snow_instructor.arctic import QuizQuestion, chunk, query_quiz_prompt

@@ -16,4 +16,4 @@ from snow_instructor.arctic import QuizQuestion
 from snow_instructor.main import generate_quiz
 from snow_instructor.utils import get_snowdocs_table
 
-__all__ = ['generate_quiz', 'get_snowdocs_table']
+__all__ = ['QuizQuestion', 'generate_quiz', 'get_snowdocs_table']

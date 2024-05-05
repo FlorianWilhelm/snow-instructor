@@ -1,13 +1,13 @@
 import logging
 
 import typer
-from annotated_types import Annotated
 from markdownify import markdownify
 from scrapy.crawler import CrawlerProcess
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.utils.project import get_project_settings
 from snowflake.snowpark import Session
+from typing_extensions import Annotated
 
 from snow_instructor import __version__
 from snow_instructor.settings import SNOWDOCS_TABLE

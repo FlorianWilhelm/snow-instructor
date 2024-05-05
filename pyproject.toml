@@ -35,7 +35,6 @@ dependencies = [
     "markdownify",
     "scrapy",
     "transformers",
-    "annotated-types",  # for having Annotated[...] in Python 3.8
 ]
 dynamic = ["version"]
 
@@ -238,7 +237,8 @@ snow-instructor = "streamlit run streamlit_app.py"
 deploy-streamlit = [
     "snow streamlit deploy --replace",
     # as Snowflake cannot handloy src-layout, we need to copy the files one level above
-    "snow stage copy --overwrite src/snow_instructor @snow_instructor_stage/snow_instructor/snow_instructor"
+    "rm -rf src/snow_instructor/__pycache__", # we don't want to copy that!
+    "snow stage copy --overwrite src/snow_instructor @snowinstructor_stage/snowinstructor/snow_instructor"
     ]
 
 # Test environment with test-only dependencies

@@ -29,9 +29,12 @@ class QuizQuestion:
 
 def chunk(text: str, max_tokens: Union[int, None] = None) -> List[str]:
     if max_tokens is None:
-        max_tokens = int(0.9 * 4096)  # 90% of the arctic's max token length
+        max_tokens = int(0.8 * 4096)  # 80% of the arctic's max token length to be sure!
 
-    tokenizer = GPT2Tokenizer.from_pretrained('gpt2')  # assuming that arctic tokenizes the same way
+    # Following code downloads the tokenizer from Hugging Face's model hub
+    # tokenizer = GPT2Tokenizer.from_pretrained('gpt2')  # assuming that arctic tokenizes the same way
+    # tokenizer.save_pretrained('assets/gpt2-tokenizer')  # save the tokenizer to disk
+    tokenizer = GPT2Tokenizer.from_pretrained('assets')  # load the tokenizer from disk
     tokens = tokenizer.tokenize(text)
     chunks = [tokens[i:i + max_tokens] for i in range(0, len(tokens), max_tokens)]
     return [tokenizer.convert_tokens_to_string(chunk) for chunk in chunks]

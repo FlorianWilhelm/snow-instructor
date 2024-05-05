@@ -8,6 +8,7 @@ dependencies:
   - streamlit
   - snowflake-snowpark-python
   - snowflake-ml-python # this is like snowflake[ml] with pip
+  - snowflake.core
   - scrapy # not really needed in Streamlit app.
   - transformers
   # THIS IS NOT YET SUPPORTED IN SNOWFLAKE

@@ -81,3 +81,12 @@ def get_wh(name: str) -> WarehouseResource:
     root = Root(Session.builder.getOrCreate())
     wh_collection = WarehouseCollection(root)
     return wh_collection[name]
+
+
+def streamlit_on_snowflake() -> bool:
+    """Check if Streamlit is available in the current Snowflake session"""
+    import streamlit as st  # noqa: PLC0415
+
+    # Basically check if the `switch_page` function is available in the `st` module
+    # Check also https://docs.snowflake.com/en/developer-guide/streamlit/limitations
+    return not hasattr(st, 'switch_page')

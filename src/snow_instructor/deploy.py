@@ -1,7 +1,7 @@
 """This module contains the deployment prepration script for Snow Instructor."""
 import typer
-from annotated_types import Annotated
 from snowflake.snowpark import Session
+from typing_extensions import Annotated
 
 from snow_instructor import __version__
 from snow_instructor.settings import SNOWINSTRUCTOR_DB, SNOWINSTRUCTOR_WH
@@ -23,7 +23,10 @@ def grant_public_role():
         GRANT CREATE STAGE ON SCHEMA {SNOWINSTRUCTOR_DB}.PUBLIC TO ROLE PUBLIC;
         GRANT USAGE ON WAREHOUSE {SNOWINSTRUCTOR_WH} TO ROLE PUBLIC;
     """
-    return session.sql(query).collect()
+    for statement in query.strip().split(';'):
+        if (statement := statement.strip()):
+            session.sql(statement).collect()
+
 
 @app.command()
 def main(

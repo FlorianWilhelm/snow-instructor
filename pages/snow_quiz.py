@@ -9,13 +9,13 @@ import snow_instructor
 _logger = logging.getLogger(__name__)
 
 
-def show_timer():
-    st.toast("Time's up!", icon="⏰")
-    with st.empty():
-        for seconds in range(60):
-            st.write(f"⏳ {seconds} seconds have passed")
-            time.sleep(1)
-        st.write("✔️ 1 minute over!")
+# def show_timer():
+#     st.toast("Time's up!", icon="⏰")
+#     with st.empty():
+#         for seconds in range(60):
+#             st.write(f"⏳ {seconds} seconds have passed")
+#             time.sleep(1)
+#         st.write("✔️ 1 minute over!")
 
 
 @st.cache_data
@@ -62,7 +62,7 @@ def main():
     with placeholder.container():
         st.markdown(f'**Question:** {quiz.question}')
 
-        for idx, (button, answer) in enumerate(zip(('A:', 'B:', 'C:', 'D:'), quiz.answers, strict=True)):
+        for idx, (button, answer) in enumerate(zip(('A:', 'B:', 'C:', 'D:'), quiz.answers)):
             with st.container():
                 left, right = st.columns([1, 10])
                 if left.button(button):
@@ -79,7 +79,8 @@ def main():
         if st.session_state.correct_answer is not None and st.button('Next Question'):
             st.session_state.curr_quiz = None
             st.session_state.correct_answer = None
-            st.rerun()
+            #st.rerun()
+            st.experimental_rerun()
 
 
 if __name__ == '__main__':
