@@ -4,16 +4,16 @@
 <img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/main/assets/logo-woman.png" alt="Snow Instructor logo" width="500" role="img">
 </div>
 
-Artic Snowflake instructor that teaches you about Snowflake's capabilities.
+Artic Snowflake instructor that teaches you about Snowflake's capabilities by playfully answering quiz questions.
 
 ## 💫 Features
 
 With this full-fledged AI-based Streamlit Application on Snowflake, you'll learn about:
 
-* [Snowpark's Python API],
-* [Snowflake's Cortex AI capabilities] and especially the [Snowflake Arctic LLM],
-* [Mulit-page Streamlit application],
-* [Streamlit Deployment on Snowflake],
+* [Snowpark's Python API]
+* [Snowflake's Cortex AI capabilities] and especially the [Snowflake Arctic LLM]
+* [Mulit-page Streamlit application]
+* [Streamlit Deployment on Snowflake]
 * [Snowflake CLI]
 
 ## ⛷️ Getting Started
