@@ -1,7 +1,7 @@
 #  ❄️ Snow Instructor ❄️
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/master/assets/logo-woman.png" alt="Snow Instructor logo" width="300" role="img">
+<img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/main/assets/logo-woman.png" alt="Snow Instructor logo" width="300" role="img">
 </div>
 
 Artic Snowflake instructor that teaches you about Snowflake's capabilities.
