@@ -66,7 +66,8 @@ def main():
     left, center, right = st.columns([2, 3, 2])
     center.image('assets/snow-instructor.png', use_column_width=True)
     chat = center.empty()
-    chat.write(f'*{start}*')
+    if st.session_state.correct_answer is None:
+        chat.write(f'*{start}*')
 
     placeholder = st.empty()
     with placeholder.container():

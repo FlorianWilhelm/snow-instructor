@@ -239,7 +239,8 @@ deploy-streamlit = [
     "snow streamlit deploy --replace",
     # as Snowflake cannot handloy src-layout, we need to copy the files one level above
     "rm -rf src/snow_instructor/__pycache__", # we don't want to copy that!
-    "snow stage copy --overwrite src/snow_instructor @snowinstructor_stage/snowinstructor/snow_instructor"
+    "snow stage copy --overwrite src/snow_instructor @snowinstructor_stage/snowinstructor/snow_instructor",
+    "snow streamlit share snowinstructor public"
     ]
 
 # Test environment with test-only dependencies
