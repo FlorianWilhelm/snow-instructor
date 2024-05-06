@@ -13,4 +13,4 @@ if center.columns((1, 8, 1))[1].button('Start the Snowflake Quiz!'):
     if not streamlit_on_snowflake():
         st.switch_page('pages/snow_quiz.py')
     else:
-        st.success('⬅️ Click on `snow quiz` in the sidebar to start the quiz!')
+        st.success('⬅️ Click on `Snow Quiz` in the sidebar to start the quiz!')

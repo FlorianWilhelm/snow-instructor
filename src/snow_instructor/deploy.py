@@ -1,4 +1,5 @@
 """This module contains the deployment prepration script for Snow Instructor."""
+
 import typer
 from snowflake.snowpark import Session
 from typing_extensions import Annotated
@@ -24,7 +25,7 @@ def grant_public_role():
         GRANT USAGE ON WAREHOUSE {SNOWINSTRUCTOR_WH} TO ROLE PUBLIC;
     """
     for statement in query.strip().split(';'):
-        if (statement := statement.strip()):
+        if statement := statement.strip():
             session.sql(statement).collect()
 
 
@@ -33,7 +34,6 @@ def main(
     connection_name: Annotated[str, typer.Option(help='Connection name')] = 'default',
     log_level: Annotated[LogLevel, typer.Option(help='Log level')] = LogLevel.INFO,
 ):
-
     setup_logging(log_level)
     Session.builder.config('connection_name', connection_name).create()
 

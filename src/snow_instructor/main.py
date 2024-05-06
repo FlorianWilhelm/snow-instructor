@@ -58,7 +58,8 @@ def main(
     else:
         print('Incorrect! The correct answer is:', chr(65 + question.correct_answer))  # noqa: T201
 
-    print(f'Source: {question.source["url"]}')  # noqa: T201
+    source = 'unknown' if question.source is None else question.source['url']
+    print(f'Source: {source}')  # noqa: T201
 
 
 if __name__ == '__main__':

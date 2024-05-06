@@ -12,15 +12,15 @@ With this full-fledged AI-based Streamlit Application on Snowflake, you'll learn
 
 * [Snowpark's Python API]
 * [Snowflake's Cortex AI capabilities] and especially the [Snowflake Arctic LLM]
-* [Mulit-page Streamlit application]
+* [Multi-page Streamlit application]
 * [Streamlit Deployment on Snowflake]
 * [Snowflake CLI]
 
 ## ⛷️ Getting Started
 
-1. If you have are a new Snowflake user, [register a 30-day free trial Snowflake account].
+1. If you are a new Snowflake user, [register a 30-day free trial Snowflake account].
    Choose the enterprise edition, AWS as cloud provider and region AWS US West 2 (Oregon),
-   as [Snowflake Arctic is only available in this region].
+   as [Snowflake Arctic is currently only available in this region].
 2. Create a Snowflake configuration file under `~/.snowflake/connections.toml` with:
 
     ```ini

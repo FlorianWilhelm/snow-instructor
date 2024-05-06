@@ -135,7 +135,8 @@ include = [
     "src/**/*.py",
     "src/**/*.pyi",
     "tests/**/*.py",
-    "tests/**/*.pyi"
+    "tests/**/*.pyi",
+    "pages/**/*.py", # for streamlit
 ]
 
 [tool.ruff.lint]
@@ -305,6 +306,8 @@ build-check = [
 
 # Lint environment
 [tool.hatch.envs.lint]
+template = "lint"  # don't inherit from default!
+skip-install = true
 dependencies = [
     "mypy~=1.9.0",
     "ruff~=0.3.2",

@@ -1,5 +1,4 @@
 import logging
-import time
 
 import streamlit as st
 from snowflake.snowpark import Session
@@ -7,15 +6,6 @@ from snowflake.snowpark import Session
 import snow_instructor
 
 _logger = logging.getLogger(__name__)
-
-
-# def show_timer():
-#     st.toast("Time's up!", icon="⏰")
-#     with st.empty():
-#         for seconds in range(60):
-#             st.write(f"⏳ {seconds} seconds have passed")
-#             time.sleep(1)
-#         st.write("✔️ 1 minute over!")
 
 
 @st.cache_data
@@ -44,10 +34,11 @@ class ButtonPress:
 
 def main():
     st.set_page_config(page_title='Snowflake Instructor', layout='centered', page_icon='⛷️')
+    st.sidebar.title('Snow Quiz')
     st.session_state.setdefault('correct_answer', None)
     st.session_state.setdefault('curr_quiz', None)
 
-    left, center, right = st.columns([1, 3, 1])
+    left, center, right = st.columns([2, 3, 2])
     center.image('assets/snow-instructor.png', use_column_width=True)
     with center.chat_message('ai'):
         st.write("Let's start the quiz! You have 1 minute to answer the questions.")
@@ -73,13 +64,15 @@ def main():
             st.success(f'Correct! [Find out more]({quiz.source["url"]})...')
             st.balloons()
         elif st.session_state.correct_answer is False:
-            st.error(f'Incorrect! The correct answer is **{chr(65 + quiz.correct_answer)}**. '
-                    f'[Find out more]({quiz.source["url"]})...')
+            st.error(
+                f'Incorrect! The correct answer is **{chr(65 + quiz.correct_answer)}**. '
+                f'[Find out more]({quiz.source["url"]})...'
+            )
 
         if st.session_state.correct_answer is not None and st.button('Next Question'):
             st.session_state.curr_quiz = None
             st.session_state.correct_answer = None
-            #st.rerun()
+            # st.rerun()
             st.experimental_rerun()
 
 

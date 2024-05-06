@@ -1,4 +1,5 @@
 import logging
+from typing import ClassVar, Dict, List, Tuple, Union
 
 import typer
 from markdownify import markdownify
@@ -17,15 +18,14 @@ _logger = logging.getLogger(__name__)
 
 
 class SnowSpider(CrawlSpider):
-    name = 'Snowflake Documentation'
-    allowed_domains = ['docs.snowflake.com']
-    start_urls = ['https://docs.snowflake.com/guides', 'https://docs.snowflake.com/developer']
+    name: ClassVar[str] = 'Snowflake Documentation'
+    allowed_domains: ClassVar[List[str]] = ['docs.snowflake.com']
+    start_urls: ClassVar[List[str]] = ['https://docs.snowflake.com/guides', 'https://docs.snowflake.com/developer']
 
-    rules = (
-        Rule(LinkExtractor(allow=('/en/user-guide/', '/en/developer-guide/')),
-             callback='parse_item', follow=True),
+    rules: ClassVar[Tuple[Rule]] = (
+        Rule(LinkExtractor(allow=('/en/user-guide/', '/en/developer-guide/')), callback='parse_item', follow=True),
     )
-    items = []
+    items: ClassVar[List[Dict[str, Union[str, List[str]]]]] = []
 
     def parse_item(self, response):
         crumbs = response.css('#scrolltarget div div nav span::text, #scrolltarget div div nav a::text').getall()
@@ -62,13 +62,15 @@ def add_items_to_snowdocs_table(items):
 
 app = typer.Typer(
     name=f'Snow Instructor {__version__} Crawler',
-    help="This spider crawls Snowflake's docs to generate quiz questions."
+    help="This spider crawls Snowflake's docs to generate quiz questions.",
 )
 
 
 @app.command()
-def main(log_level: Annotated[LogLevel, typer.Option(help='Log level')] = LogLevel.WARNING,
-         connection_name: Annotated[str, typer.Option(help='Connection name')] = 'default'):
+def main(
+    log_level: Annotated[LogLevel, typer.Option(help='Log level')] = LogLevel.WARNING,
+    connection_name: Annotated[str, typer.Option(help='Connection name')] = 'default',
+):
     Session.builder.config('connection_name', connection_name).create()
     assert_snowdocs_table()
     cfg = get_project_settings()

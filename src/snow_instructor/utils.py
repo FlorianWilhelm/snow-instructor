@@ -2,6 +2,7 @@
 
 In most functions we assume that a Snowflake session is already created.
 """
+
 import enum
 import logging
 import sys

@@ -10,9 +10,11 @@ from transformers import GPT2Tokenizer
 _logger = logging.getLogger(__name__)
 
 
-QUIZ_PROMPT = ('Based on the following excerpt from the Snowflake documentation, generate a multiple-choice question '
-               'that tests understanding of the key concept discussed. Include four answer choices and indicate the '
-               'correct answer.\n{text}')
+QUIZ_PROMPT = (
+    'Based on the following excerpt from the Snowflake documentation, generate a multiple-choice question '
+    'that tests understanding of the key concept discussed. Include four answer choices and indicate the '
+    'correct answer.\n{text}'
+)
 
 
 @dataclass
@@ -36,7 +38,7 @@ def chunk(text: str, max_tokens: Union[int, None] = None) -> List[str]:
     # tokenizer.save_pretrained('assets/gpt2-tokenizer')  # save the tokenizer to disk
     tokenizer = GPT2Tokenizer.from_pretrained('assets')  # load the tokenizer from disk
     tokens = tokenizer.tokenize(text)
-    chunks = [tokens[i:i + max_tokens] for i in range(0, len(tokens), max_tokens)]
+    chunks = [tokens[i : i + max_tokens] for i in range(0, len(tokens), max_tokens)]
     return [tokenizer.convert_tokens_to_string(chunk) for chunk in chunks]
 
 
@@ -56,7 +58,7 @@ def parse_arctic_response(text: str) -> QuizQuestion:
     if match is None:
         msg = f'Could not parse the quiz answers from Arctic. Answers:\n{answers}'
         raise ValueError(msg)
-    answers = match.groups()
+    answers = [str(group) for group in match.groups()]
 
     match = re.search(r'Correct.*: ([A-Da-d])', correct_answer)
     if match is None:
