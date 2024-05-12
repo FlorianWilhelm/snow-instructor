@@ -7,14 +7,9 @@ from snowflake import cortex
 from snowflake.snowpark import Session
 from transformers import GPT2Tokenizer
 
+from snow_instructor.settings import QUIZ_PROMPT
+
 _logger = logging.getLogger(__name__)
-
-
-QUIZ_PROMPT = (
-    'Based on the following excerpt from the Snowflake documentation, generate a multiple-choice question '
-    'that tests understanding of the key concept discussed. Include four answer choices and indicate the '
-    'correct answer.\n{text}'
-)
 
 
 @dataclass

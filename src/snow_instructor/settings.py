@@ -4,6 +4,11 @@ SNOWDOCS_TABLE = 'SNOWDOCS'
 SNOWINSTRUCTOR_WH = 'SNOWINSTRUCTOR_WH'  # same as in snowflake.yml!
 SNOWINSTRUCTOR_DB = 'SNOWINSTRUCTOR'  # same as in ~/.snowflake/connections.toml
 
+QUIZ_PROMPT = (
+    'Based on the following excerpt from the Snowflake documentation, generate a multiple-choice question '
+    'that tests understanding of the key concept discussed. Include four answer choices and indicate the '
+    'correct answer.\n{text}'
+)
 
 START_COMMENTS = [
     "Welcome, everyone! I hope you brought your brains today. You'll need them.",
@@ -162,4 +167,58 @@ INCORRECT_COMMENTS = [
     "You're not just thinking outside the box; you left the box behind.",
     'That was a leap of faith... off a cliff.',
     'Are you pioneering new ways to be wrong? Because bravo!',
+]
+
+
+GREETINGS = [
+    'Ah, fresh meat! Welcome to the chaos.',
+    "Look who finally showed up! We've been expecting you... sort of.",
+    'Here comes a new challenger! Or just another casualty, time will tell.',
+    'Welcome! We were running out of people to beat.',
+    'Ah, a new victim—I mean, player! Welcome aboard!',
+    "Welcome! Don't worry, we only bite if you win.",
+    "New face, huh? Let's see how long the enthusiasm lasts.",
+    'Oh, joy! Another player who thinks they can win. Cute.',
+    'Greetings, newcomer. Prepare for your inevitable defeat!',
+    'Welcome! Just remember, the first rule is there are no rules. (Just kidding, there are lots of rules.)',
+    'Ah, welcome! You look just like the last person who lost spectacularly.',
+    "You're new here, right? Don't worry, the confusion is normal.",
+    "Welcome to the jungle! We've got fun and games. And yes, a little bit of chaos.",
+    'Enter the newcomer! May your wit be as sharp as your looks.',
+    'Hello and welcome! May your stay here be both puzzling and enlightening.',
+    'Ah, our latest adventurer! Brace yourself; it gets weird here.',
+    'Welcome! Try to look smarter than you are—it helps.',
+    'Greetings! If you need any help, just ask someone else.',
+    "Welcome to the fold. It's too late to escape now.",
+    "Hello! If you came looking for a gentle introduction... you won't find it here.",
+    "A new challenger has appeared! We'll try to go easy on you. Try.",
+    "Greetings, newbie! Spoiler alert: we're all mad here.",
+    "Welcome, welcome! You'll either leave as a hero or one of us.",
+    'A warm welcome to you! Or at least as warm as we get around here.',
+    'Hey there! You look just as confused as we felt when we started.',
+    'Welcome! We were just saying we needed a new player to liven up the losses.',
+    'Look what the cat dragged in! Hopefully, you play better than you look.',
+    'Welcome to the game where your guess is as good as mine. Literally.',
+    "Oh, a new player! Are you sure you're ready for this?",
+    "Welcome aboard! We hope you're better at this than your predecessors.",
+    'New player alert! The odds just got more interesting.',
+    "Hey, welcome! You don't look totally hopeless.",
+    'Greetings, Earthling. Ready to conquer or be conquered?',
+    "Welcome! It's all downhill from here, so enjoy the view!",
+    "Hello to our newest player! Don't mind the chaos; it's part of the charm.",
+    "Welcome! Let's find out if you're as good as you think you are.",
+    "Ah, a newcomer. Don't worry, it only seems impossible.",
+    'Hey there! Ready to lose? Just kidding... sort of.',
+    'Welcome! Just in time to watch your hopes get dashed. Fun, right?',
+    "New here? Don't worry, the despair grows on you.",
+    "Ah, a new face! Spoiler: the game's rigged. (Just kidding... maybe.)",
+    'Greetings! Ready to embark on a journey of questionable decisions?',
+    'Welcome, new player! May your answers be correct and your losses be spectacular.',
+    "Hello! Keep your expectations low, and you'll do fine.",
+    "A newbie! Let's see if you're a quick learner or just quick to lose.",
+    "Welcome! We'll start easy on you. Or maybe we won't.",
+    "Hey, new player! Strap in; it's going to be a bumpy ride.",
+    'Hello, fresh talent! Ready to be thoroughly bamboozled?',
+    'Welcome! We needed someone else to help balance out the average score.',
+    "Welcome! Remember, it's not about winning, but who you beat.",
 ]
