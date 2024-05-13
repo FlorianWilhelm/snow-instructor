@@ -7,9 +7,8 @@ from typing_extensions import Annotated
 
 from snow_instructor import __version__
 from snow_instructor.arctic import QuizQuestion, chunk, query_quiz_prompt
+from snow_instructor.settings import MIN_TEXT_LEN_FOR_QUESTION
 from snow_instructor.utils import LogLevel, get_snowdocs_table, setup_logging
-
-MIN_TEXT_LEN_FOR_QUESTION = 2000  # we assume that's long enough to generate a good question
 
 
 def generate_quiz(snowdocs: List[Dict[str, str]]) -> QuizQuestion:

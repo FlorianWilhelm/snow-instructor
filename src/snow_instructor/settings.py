@@ -4,6 +4,7 @@ SNOWDOCS_TABLE = 'SNOWDOCS'
 SNOWINSTRUCTOR_WH = 'SNOWINSTRUCTOR_WH'  # same as in snowflake.yml!
 SNOWINSTRUCTOR_DB = 'SNOWINSTRUCTOR'  # same as in ~/.snowflake/connections.toml
 
+MIN_TEXT_LEN_FOR_QUESTION = 2000  # we assume that's long enough to generate a good question
 QUIZ_PROMPT = (
     'Based on the following excerpt from the Snowflake documentation, generate a multiple-choice question '
     'that tests understanding of the key concept discussed. Include four answer choices and indicate the '

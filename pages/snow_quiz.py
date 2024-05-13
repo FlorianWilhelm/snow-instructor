@@ -1,15 +1,19 @@
 import logging
 import time
+from concurrent.futures import Future, ThreadPoolExecutor
 from random import choice
+from typing import Union
 
 import streamlit as st
 from snowflake.snowpark import Session
+from streamlit.runtime.state import SessionState
 
 import snow_instructor
 from snow_instructor.settings import CORRECT_COMMENTS, INCORRECT_COMMENTS, START_COMMENTS
 from snow_instructor.utils import streamlit_on_snowflake
 
 _logger = logging.getLogger(__name__)
+_executor = ThreadPoolExecutor(max_workers=1)
 
 
 @st.cache_data
@@ -18,18 +22,36 @@ def get_snowdocs_table():
     return snow_instructor.get_snowdocs_table()
 
 
-def generate_quiz() -> snow_instructor.QuizQuestion:
+def generate_quiz(*, sync: bool) -> Union[Future, snow_instructor.QuizQuestion]:
     """Generate a quiz question based on the content of the Snowflake documentation"""
     _logger.info('Generating a quiz question...')
 
-    placeholder = st.empty()
-    with placeholder, st.spinner('Connecting to Snowflake...'):
-        Session.builder.config('connection_name', 'default').getOrCreate()
-    with placeholder, st.spinner('Reading Snowflake documentation...'):
+    if sync:
+        placeholder = st.empty()
+        with placeholder, st.spinner('Connecting to Snowflake...'):
+            try:
+                Session.builder.getOrCreate()
+            except Exception:
+                Session.builder.config('connection_name', 'default').create()
+        with placeholder, st.spinner('Reading Snowflake documentation...'):
+            snowdocs = get_snowdocs_table()
+        with placeholder, st.spinner('Generating a quiz question...'):
+            return snow_instructor.generate_quiz(snowdocs)
+    else:
         snowdocs = get_snowdocs_table()
-    with placeholder, st.spinner('Generating a quiz question...'):
-        question = snow_instructor.generate_quiz(snowdocs)
-    return question
+        return _executor.submit(snow_instructor.generate_quiz, snowdocs)
+
+
+def prefetch_generate_quiz(state: SessionState) -> None:
+    """version of `generate_quiz` with prefetching of the next question."""
+    if state.next_quiz is None:
+        state.curr_quiz = generate_quiz(sync=True)
+    elif not state.next_quiz.done():
+        with st.empty(), st.spinner('Generating a quiz question...'):
+            state.curr_quiz = state.next_quiz.result()
+    else:
+        state.curr_quiz = state.next_quiz.result()
+    state.next_quiz = generate_quiz(sync=False)
 
 
 class ButtonPress:
@@ -55,6 +77,7 @@ def main():
     st.session_state.setdefault('comments_chosen', False)
     st.session_state.setdefault('correct_answer', None)
     st.session_state.setdefault('curr_quiz', None)
+    st.session_state.setdefault('next_quiz', None)
     st.session_state.setdefault('fails', 0)
     st.session_state.setdefault('wins', 0)
 
@@ -75,7 +98,7 @@ def main():
     placeholder = st.empty()
     with placeholder.container():
         if st.session_state.curr_quiz is None:
-            st.session_state.curr_quiz = generate_quiz()
+            prefetch_generate_quiz(st.session_state)
             placeholder.empty()
             refresh()
 

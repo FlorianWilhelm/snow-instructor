@@ -1,4 +1,4 @@
-#  ❄️ Snow Instructor ❄️
+# ❄️ Snow Instructor ❄️
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/main/assets/logo-woman.png" alt="Snow Instructor logo" width="500" role="img">
@@ -15,6 +15,7 @@ With this full-fledged AI-based Streamlit Application on Snowflake, you'll learn
 * [Multi-page Streamlit application]
 * [Streamlit Deployment on Snowflake]
 * [Snowflake CLI]
+* [Threading in conjunction with Streamlit for long-running background tasks]
 
 ## ⛷️ Getting Started
 
@@ -64,7 +65,6 @@ With this full-fledged AI-based Streamlit Application on Snowflake, you'll learn
 
    And open up the URL shown in the output of the last command.
 
-
 ## 🛠️ Development
 
 To set up [hatch] and [pre-commit] for the first time:
@@ -92,7 +92,7 @@ packages, type `hatch run test:upgrade-pkg pkg1,pkg2`.
 
 ## 🙏 Credits
 
-This package was created with [The Hatchlor] project template.
+This package was created with [The Hatchlor] project template and initiated by the [Arctic Streamlit Hackathon].
 
 [The Hatchlor]: https://github.com/florianwilhelm/the-hatchlor
 [pipx]: https://pypa.github.io/pipx/
@@ -100,12 +100,14 @@ This package was created with [The Hatchlor] project template.
 [pre-commit]: https://pre-commit.com/
 [hatch-pip-compile]: https://github.com/juftin/hatch-pip-compile
 [register a 30-day free trial Snowflake account]: https://trial.snowflake.com/?owner=SPN-PID-545753
-[Snowflake Arctic is only available in this region]: https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#label-cortex-llm-availability
+[Snowflake Arctic is currently only available in this region]: https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#label-cortex-llm-availability
 [Snowflake documentation]: https://docs.snowflake.com/
 [Streamlit]: https://streamlit.io/
 [Snowpark's Python API]: https://docs.snowflake.com/en/developer-guide/snowflake-python-api/snowflake-python-overview
 [Snowflake's Cortex AI capabilities]: https://docs.snowflake.com/en/user-guide/snowflake-cortex/overview
 [Snowflake Arctic LLM]: https://www.snowflake.com/en/data-cloud/arctic/
-[Mulit-page Streamlit application]: https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
+[Multi-page Streamlit application]: https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
 [Streamlit Deployment on Snowflake]: https://www.snowflake.com/en/data-cloud/overview/streamlit-in-snowflake/
 [Snowflake CLI]: https://docs.snowflake.com/developer-guide/snowflake-cli-v2/index
+[Threading in conjunction with Streamlit for long-running background tasks]: https://docs.python.org/3/library/concurrent.futures.html
+[Arctic Streamlit Hackathon]: https://arctic-streamlit-hackathon.devpost.com/

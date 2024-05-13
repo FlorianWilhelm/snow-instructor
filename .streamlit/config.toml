@@ -3,3 +3,7 @@ showSidebarNavigation = false
 
 [logger]
 level = "debug"
+
+[theme]
+base="light"
+primaryColor="#5d7ff3"
