@@ -4,7 +4,7 @@
 <img src="https://raw.githubusercontent.com/FlorianWilhelm/snow-instructor/main/assets/logo-woman.png" alt="Snow Instructor logo" width="500" role="img">
 </div>
 
-Artic Snowflake instructor that teaches you about Snowflake's capabilities by playfully answering quiz questions.
+Snow instructor teaches you about Snowflake's capabilities by playfully answering quiz questions. [Check out this video]!
 
 ## 💫 Features
 
@@ -111,3 +111,4 @@ This package was created with [The Hatchlor] project template and initiated by t
 [Snowflake CLI]: https://docs.snowflake.com/developer-guide/snowflake-cli-v2/index
 [Threading in conjunction with Streamlit for long-running background tasks]: https://docs.python.org/3/library/concurrent.futures.html
 [Arctic Streamlit Hackathon]: https://arctic-streamlit-hackathon.devpost.com/
+[Check out this video]: https://youtu.be/2kQaZiplSDw
