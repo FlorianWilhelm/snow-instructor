@@ -2,7 +2,7 @@ definition_version: 1
 streamlit:
   name: snowinstructor
   stage: snowinstructor_stage
-  query_warehouse: snowinstructor_wh
+  query_warehouse: compute_wh
   main_file: streamlit_app.py
   env_file: environment.yml
   pages_dir: pages/

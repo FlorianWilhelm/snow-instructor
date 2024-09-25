@@ -1,3 +1,4 @@
+import logging
 import random
 from typing import Dict, List
 
@@ -6,9 +7,11 @@ from snowflake.snowpark import Session
 from typing_extensions import Annotated
 
 from snow_instructor import __version__
-from snow_instructor.arctic import QuizQuestion, chunk, query_quiz_prompt
+from snow_instructor.llm import QuizQuestion, chunk, query_quiz_prompt
 from snow_instructor.settings import MIN_TEXT_LEN_FOR_QUESTION
 from snow_instructor.utils import LogLevel, get_snowdocs_table, setup_logging
+
+_logger = logging.getLogger(__name__)
 
 
 def generate_quiz(snowdocs: List[Dict[str, str]]) -> QuizQuestion:
@@ -20,6 +23,7 @@ def generate_quiz(snowdocs: List[Dict[str, str]]) -> QuizQuestion:
             try:
                 question = query_quiz_prompt(content)
             except ValueError:
+                _logger.warning('Failed to generate a question from the content. Retrying...')
                 continue
 
             if question.is_valid:

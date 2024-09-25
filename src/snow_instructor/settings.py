@@ -1,8 +1,11 @@
 """All settings for the Snow Instructor project."""
 
-SNOWDOCS_TABLE = 'SNOWDOCS'
-SNOWINSTRUCTOR_WH = 'SNOWINSTRUCTOR_WH'  # same as in snowflake.yml!
-SNOWINSTRUCTOR_DB = 'SNOWINSTRUCTOR'  # same as in ~/.snowflake/connections.toml
+LLM_MODEL = 'llama3.1-8b'
+LLM_MODEL_WINDOW_SIZE = 4096
+SNOWINSTRUCTOR_WH = 'COMPUTE_WH'  # same as in snowflake.yml!
+SNOWINSTRUCTOR_DB = 'FWILHELM'  # same as in ~/.snowflake/connections.toml
+SNOWINSTRUCTOR_SCHEMA = 'SNOWINSTRUCTOR'
+SNOWDOCS_TABLE = f'{SNOWINSTRUCTOR_DB}.{SNOWINSTRUCTOR_SCHEMA}.SNOWDOCS'
 
 MIN_TEXT_LEN_FOR_QUESTION = 2000  # we assume that's long enough to generate a good question
 QUIZ_PROMPT = (

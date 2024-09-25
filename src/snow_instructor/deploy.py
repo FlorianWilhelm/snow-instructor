@@ -5,7 +5,7 @@ from snowflake.snowpark import Session
 from typing_extensions import Annotated
 
 from snow_instructor import __version__
-from snow_instructor.settings import SNOWINSTRUCTOR_DB, SNOWINSTRUCTOR_WH
+from snow_instructor.settings import SNOWINSTRUCTOR_DB, SNOWINSTRUCTOR_SCHEMA, SNOWINSTRUCTOR_WH
 from snow_instructor.utils import LogLevel, create_wh, setup_logging, wh_exists
 
 app = typer.Typer(
@@ -19,9 +19,9 @@ def grant_public_role():
     session = Session.builder.getOrCreate()
     query = f"""
         GRANT USAGE ON DATABASE {SNOWINSTRUCTOR_DB} TO ROLE PUBLIC;
-        GRANT USAGE ON SCHEMA {SNOWINSTRUCTOR_DB}.PUBLIC TO ROLE PUBLIC;
-        GRANT CREATE STREAMLIT ON SCHEMA {SNOWINSTRUCTOR_DB}.PUBLIC TO ROLE PUBLIC;
-        GRANT CREATE STAGE ON SCHEMA {SNOWINSTRUCTOR_DB}.PUBLIC TO ROLE PUBLIC;
+        GRANT USAGE ON SCHEMA {SNOWINSTRUCTOR_DB}.{SNOWINSTRUCTOR_SCHEMA} TO ROLE PUBLIC;
+        GRANT CREATE STREAMLIT ON SCHEMA {SNOWINSTRUCTOR_DB}.{SNOWINSTRUCTOR_SCHEMA} TO ROLE PUBLIC;
+        GRANT CREATE STAGE ON SCHEMA {SNOWINSTRUCTOR_DB}.{SNOWINSTRUCTOR_SCHEMA} TO ROLE PUBLIC;
         GRANT USAGE ON WAREHOUSE {SNOWINSTRUCTOR_WH} TO ROLE PUBLIC;
     """
     for statement in query.strip().split(';'):

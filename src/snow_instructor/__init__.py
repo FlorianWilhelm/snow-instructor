@@ -12,7 +12,7 @@ except PackageNotFoundError:  # pragma: no cover
 finally:
     del version, PackageNotFoundError
 
-from snow_instructor.arctic import QuizQuestion
+from snow_instructor.llm import QuizQuestion
 from snow_instructor.main import generate_quiz
 from snow_instructor.utils import get_snowdocs_table
 

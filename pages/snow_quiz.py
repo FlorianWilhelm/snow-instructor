@@ -88,8 +88,8 @@ def main():
     start, correct, incorrect = st.session_state.comments
 
     left, center, right = st.columns([2, 3, 2])
-    right.header(f'**❄️: {st.session_state.wins}&nbsp;&nbsp;&nbsp;🤦‍♀️: {st.session_state.fails}**')
-    # right.header(f'**✔️: {st.session_state.wins}&nbsp;&nbsp;&nbsp;✖️: {st.session_state.fails}**')
+    right.header(f'**❄️: {st.session_state.wins}**')
+    right.header(f'**🤦‍♀️: {st.session_state.fails}**')
     center.image('assets/snow-instructor.png', use_column_width=True)
     chat = center.empty()
     if st.session_state.correct_answer is None:
